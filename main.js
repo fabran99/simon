@@ -10,10 +10,6 @@ function iniciarJuego(){
     patron=[];
     sp=[];
     
-    botones.forEach((valor, index) => {
-    document.querySelector('.'+botones[index]).addEventListener('click', () => {
-})});
-    
     var numeroNuevo = Math.floor(Math.random()*4);
     patron.push(numeroNuevo);
     console.log(patron);
@@ -24,8 +20,9 @@ function iniciarJuego(){
     document.querySelector('.header button').innerHTML='Reiniciar juego';
     
     botones.forEach((valor, index) => {
-    document.querySelector('.'+botones[index]).addEventListener('click', () => {clickBoton(index); console.log('add');
-})});
+    document.querySelector('.'+botones[index]).onclick=function(){
+        clickBoton(index)
+    }});
     
     setTimeout(function(){
         
