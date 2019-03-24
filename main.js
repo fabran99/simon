@@ -8,10 +8,15 @@ var audios=[new Audio('0.wav'), new Audio('1.wav'),new Audio('2.wav'), new Audio
 
 function iniciarJuego(){
     patron=[];
+    sp=[];
+    
+    botones.forEach((valor, index) => {
+    document.querySelector('.'+botones[index]).addEventListener('click', () => {
+})});
+    
     var numeroNuevo = Math.floor(Math.random()*4);
     patron.push(numeroNuevo);
     console.log(patron);
-    sp=[];
     nivel=1;
     document.querySelector('#nivel').innerHTML='Nivel:'+nivel;
     
@@ -19,7 +24,7 @@ function iniciarJuego(){
     document.querySelector('.header button').innerHTML='Reiniciar juego';
     
     botones.forEach((valor, index) => {
-    document.querySelector('.'+botones[index]).addEventListener('click', () => {clickBoton(index)
+    document.querySelector('.'+botones[index]).addEventListener('click', () => {clickBoton(index); console.log('add');
 })});
     
     setTimeout(function(){
@@ -36,8 +41,9 @@ function iniciarJuego(){
 
 
 function clickBoton(id){
-    sp.push(parseInt(id));
     audios[id].play();
+    sp.push(parseInt(id));
+    
     console.log(sp);
     
     document.querySelector('.'+botones[id]).classList.add('activo');
