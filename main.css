@@ -30,6 +30,9 @@ body{
     font-size: 18px;
 }
 
+.contenedor{
+    text-align: center;
+}
 .header button{
     background: black;
     color: white;
@@ -50,14 +53,12 @@ body{
     height: 100px;
     border: 5px solid black;
     display: inline-block;
-    margin: 15px;
+    margin: 5px;
     cursor: pointer;
     opacity: .4;
 }
 
-.boton:hover{
-    opacity: 1;
-}
+
 .rojo{
     background: rgba(255, 0, 0, 1);
     border-top-left-radius: 40px;

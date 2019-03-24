@@ -38,6 +38,13 @@ function iniciarJuego(){
 function clickBoton(id){
     sp.push(parseInt(id));
     audios[id].play();
+    console.log(sp);
+    
+    document.querySelector('.'+botones[id]).classList.add('activo');
+    setTimeout(function(){
+        document.querySelector('.'+botones[id]).classList.remove('activo');
+    }, 1000);
+    
     if(sp.length==patron.length){
         if(comparar()){
         patron=[];
