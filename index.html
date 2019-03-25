@@ -28,6 +28,51 @@
       <div class="boton verde"></div>
     </div>
 
+    <div class="record">
+      <h4>Tu mejor puntuación fue :</h4>
+      <div class="submitRecord">
+        <h4>
+          Has superado tu mejor puntuación<br />
+          ¿Quieres compartir tu record?
+        </h4>
+        <label for="nombre">Ingresa tu nombre</label>
+        <input
+          type="text"
+          id="nombre"
+          placeholder="Ingresa tu nombre"
+          autocomplete="off"
+        />
+        <button>Compartir</button>
+      </div>
+      <a href="javascript:toggleTabla()">Ver tabla de mejores puntuaciones</a>
+      <div class="tabla">
+        <table>
+          <thead>
+            <tr>
+              <th>Posición</th>
+              <th>Jugador</th>
+              <th>Puntuación</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyAlMMzgvnyqjNZbcQOE2P1cggVhFgc58II",
+        authDomain: "simononline-56c6c.firebaseapp.com",
+        databaseURL: "https://simononline-56c6c.firebaseio.com",
+        projectId: "simononline-56c6c",
+        storageBucket: "simononline-56c6c.appspot.com",
+        messagingSenderId: "123919267776"
+      };
+      firebase.initializeApp(config);
+    </script>
     <script src="main.js"></script>
   </body>
 </html>

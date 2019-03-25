@@ -19,22 +19,18 @@ body {
 
   background-repeat: no-repeat;
   color: white;
-  height: 100vh;
   width: 100%;
+  font-family: "Montserrat";
 }
 
 .contenedor {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -40%);
   width: 280px;
   height: 200px;
+  margin: 20px auto;
 }
 
 .header {
   text-align: center;
-  font-family: "Montserrat";
   padding: 10px;
 }
 
@@ -93,4 +89,85 @@ body {
 
 .activo {
   opacity: 1;
+}
+
+.record {
+  margin: 50px auto;
+  text-align: center;
+}
+.record h4 {
+  font-weight: lighter;
+  font-size: 20px;
+  margin: 15px auto;
+}
+
+.record a {
+  color: rgb(97, 210, 255);
+}
+
+.record .submitRecord {
+  background: #191919;
+  max-width: 600px;
+  margin: 25px auto;
+  padding: 10px 5px 15px 5px;
+  display: none;
+}
+
+.record .submitRecord label,
+.record .submitRecord input {
+  display: block;
+  margin: 5px auto;
+}
+
+.record input,
+.record button {
+  outline: none;
+  background: rgba(0, 0, 0, 0.685);
+  border: none;
+  font-family: "Montserrat";
+  padding: 8px 10px;
+  font-size: 15px;
+  border-bottom: 2px solid transparent;
+  transition: all 0.4s ease;
+  color: white;
+}
+.record input:hover {
+  border-bottom: 2px solid white;
+}
+
+.record button {
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.record button:hover {
+  background: rgb(15, 15, 15);
+}
+
+.tabla {
+  margin-top: 20px;
+  background: rgb(14, 14, 14);
+  padding: 20px 5px;
+  display: none;
+}
+
+.tabla th {
+  font-weight: lighter;
+  padding: 8px;
+  font-size: 0.8rem;
+}
+.tabla td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 30vw;
+  font-size: 0.9rem;
+  border: 1px solid white;
+  padding: 5px;
+}
+
+.tabla table {
+  margin: 0 auto;
+  border-spacing: 0;
+  text-align: center;
 }

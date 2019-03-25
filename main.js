@@ -36,6 +36,8 @@ function iniciarJuego() {
   patron = [];
   sp = [];
   nivel = 1;
+  document.querySelector(".submitRecord button").onclick = function() {};
+  document.querySelector(".mensajes").innerHTML = "Memoriza el patron";
 
   //   agrego el primer valor del patron
   var numeroNuevo = Math.floor(Math.random() * 4);
@@ -45,10 +47,10 @@ function iniciarJuego() {
   //   cambio los valores del texto a los del juego ya iniciado
   document.querySelector("#nivel").innerHTML = "Nivel:" + nivel;
   document.querySelector(".header button").innerHTML = "Reiniciar juego";
+  document.querySelector(".submitRecord").style.display = "none";
 
   setTimeout(function() {
     // enciendo primer botón
-    document.querySelector(".mensajes").innerHTML = "Memoriza el patron";
     audios[numeroNuevo].play();
     setTimeout(() => {
       window.navigator.vibrate(70);
@@ -81,10 +83,15 @@ function clickBoton(id) {
 
   // si el jugador se equivoca termino el juego y reinicio las variables
   if (comparar()) {
-    patron = [];
-    sp = [];
-    nivel = 1;
-
+    if (nivel - 1 > parseInt(window.localStorage["record"])) {
+      localStorage.setItem("record", nivel - 1);
+      actualizarRecord();
+      document.querySelector(".submitRecord").style.display = "block";
+      window.scrollTo({ top: 100, behavior: "smooth" });
+      document.querySelector(".submitRecord button").onclick = function() {
+        submitRecord(nivel - 1);
+      };
+    }
     document.querySelector(".mensajes").innerHTML =
       "Has fallado, vuelve a intentarlo";
     window.navigator.vibrate(700);
@@ -156,3 +163,92 @@ function siguienteNivel() {
     document.querySelector(".mensajes").innerHTML = "Sigue el patron";
   }, 1200 * patron.length);
 }
+
+/////////////////
+// Sección de los records
+////////////////
+// inicializo la base de datos
+var db = firebase.firestore();
+
+// si no hay record registrado lo inicializo
+if (!window.localStorage["record"]) {
+  localStorage.setItem("record", 1);
+}
+
+// mostrar record actual en pantalla
+const actualizarRecord = () => {
+  document.querySelector(".record h4").innerHTML =
+    "Tu mejor puntuación fue: " + window.localStorage["record"];
+};
+
+actualizarRecord();
+
+const submitRecord = lvl => {
+  var nombre = document.querySelector("#nombre");
+
+  if (nombre.value != "") {
+    // Add a new document with a generated id.
+    var fecha = new Date();
+
+    var dia = fecha.getDate().toString();
+    var mes = (fecha.getMonth() + 1).toString();
+    var year = fecha
+      .getFullYear()
+      .toString()
+      .split("20")[1];
+    var date = dia + "/" + mes + "/" + year;
+
+    nombre.style.borderBottomColor = "";
+    db.collection("records")
+      .add({
+        record: lvl,
+        user: nombre.value,
+        date
+      })
+      .then(function(docRef) {
+        // console.log("Document written with ID: ", docRef.id);
+        document.querySelector(".mensajes").innerHTML =
+          "Se ha añadido tu record a la lista de puntuaciones";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        document.querySelector(".submitRecord").style.display = "none";
+      })
+      .catch(function(error) {
+        console.error("Error adding document: ", error);
+      });
+  } else {
+    nombre.style.borderBottomColor = "red";
+  }
+};
+
+// crear tabla de datos
+db.collection("records")
+  .orderBy("record", "desc")
+  .limit(10)
+  .onSnapshot(querySnapshot => {
+    document.querySelector(".tabla table tbody").innerHTML = "";
+    var contador = 1;
+    querySnapshot.forEach(doc => {
+      document.querySelector(".tabla table tbody").innerHTML += `
+          <tr>
+            <td>${contador}</td>
+            <td>${doc.data().user}</td>
+            <td>${doc.data().record}</td>
+            <td>${doc.data().date}</td>
+          </tr>
+          `;
+      contador++;
+    });
+  });
+
+// tabla de puntuación
+
+var tablaVisible = false;
+const toggleTabla = () => {
+  if (tablaVisible) {
+    document.querySelector(".tabla").style.display = "none";
+    tablaVisible = false;
+  } else {
+    document.querySelector(".tabla").style.display = "block";
+    tablaVisible = true;
+  }
+};
