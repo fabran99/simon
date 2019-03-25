@@ -48,8 +48,11 @@ function iniciarJuego() {
 
   setTimeout(function() {
     // enciendo primer botón
-    document.querySelector(".mensajes").innerHTML = "Sigue el patron";
+    document.querySelector(".mensajes").innerHTML = "Memoriza el patron";
     audios[numeroNuevo].play();
+    setTimeout(() => {
+      window.navigator.vibrate(70);
+    }, 80);
     document.querySelector("." + botones[numeroNuevo]).classList.add("activo");
 
     // espero un segundo y apago el botón, activo los botónes para que el jugador pueda usarlos.
@@ -58,6 +61,7 @@ function iniciarJuego() {
         .querySelector("." + botones[numeroNuevo])
         .classList.remove("activo");
       activarBotones();
+      document.querySelector(".mensajes").innerHTML = "Sigue el patron";
     }, 1000);
   }, 1000);
 }
@@ -69,8 +73,8 @@ function clickBoton(id) {
   sp.push(parseInt(id));
   console.log(sp);
 
-  document.querySelector(".mensajes").innerHTML = "Sigue el patron";
   document.querySelector("." + botones[id]).classList.add("activo");
+  window.navigator.vibrate(70);
   setTimeout(function() {
     document.querySelector("." + botones[id]).classList.remove("activo");
   }, 1000);
@@ -83,6 +87,7 @@ function clickBoton(id) {
 
     document.querySelector(".mensajes").innerHTML =
       "Has fallado, vuelve a intentarlo";
+    window.navigator.vibrate(700);
     desactivarBotones();
     audios[4].play();
   } else {
@@ -119,7 +124,7 @@ function siguienteNivel() {
   sp = [];
   nivel = nivel + 1;
   document.getElementById("nivel").innerHTML = "Nivel:" + nivel;
-  document.querySelector(".mensajes").innerHTML = "Sigue el patron";
+  document.querySelector(".mensajes").innerHTML = "Memoriza el patron";
 
   // agrego un valor nuevo al patrón del juego
   var numeroNuevo = Math.floor(Math.random() * 4);
@@ -133,6 +138,9 @@ function siguienteNivel() {
   for (let i = 0; i < patron.length; i++) {
     setTimeout(function() {
       audios[patron[i]].play();
+      setTimeout(() => {
+        window.navigator.vibrate(70);
+      }, 70);
       document.querySelector("." + botones[patron[i]]).classList.add("activo");
       setTimeout(function() {
         document
@@ -145,5 +153,6 @@ function siguienteNivel() {
   //   una vez terminada la animación activo los botones para que el jugador pueda interactuar
   setTimeout(function() {
     activarBotones();
+    document.querySelector(".mensajes").innerHTML = "Sigue el patron";
   }, 1200 * patron.length);
 }
